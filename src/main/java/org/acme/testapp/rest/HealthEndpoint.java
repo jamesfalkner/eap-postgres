@@ -7,7 +7,7 @@ import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 
 @ApplicationScoped
-@Path("/")
+@Path("/health")
 public class HealthEndpoint implements Serializable {
 
     private static final long serialVersionUID = -2630425175177495070L;

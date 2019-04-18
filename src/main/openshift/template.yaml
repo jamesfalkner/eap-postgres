@@ -149,19 +149,16 @@ items:
             value: testapp-postgresql
           image: testapp
           imagePullPolicy: Always
-          lifecycle:
-            preStop:
-              exec:
-                command:
-                - /opt/eap/bin/jboss-cli.sh
-                - -c
-                - :shutdown(timeout=60)
           livenessProbe:
-            exec:
-              command:
-              - /bin/bash
-              - -c
-              - /opt/eap/bin/livenessProbe.sh
+            httpGet:
+              path: /health
+              port: 8080
+              scheme: HTTP
+          readinessProbe:
+            httpGet:
+              path: /health
+              port: 8080
+              scheme: HTTP
           name: testapp
           ports:
           - containerPort: 8778
@@ -176,15 +173,6 @@ items:
           - containerPort: 8888
             name: ping
             protocol: TCP
-          readinessProbe:
-            failureThreshold: 5
-            httpGet:
-              path: /health.jsp
-              port: 8080
-              scheme: HTTP
-            periodSeconds: 20
-            successThreshold: 1
-            timeoutSeconds: 1
           volumeMounts:
           - mountPath: /etc/eap-secret-volume
             name: eap-keystore-volume
