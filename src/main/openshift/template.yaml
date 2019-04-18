@@ -65,14 +65,13 @@ items:
         kind: ImageStreamTag
         name: testapp:latest
     source:
-      contextDir: monolith
       git:
         uri: https://github.com/jamesfalkner/eap-postgres
       type: Git
     strategy:
       sourceStrategy:
         from:
-          kind: Image
+          kind: DockerImage
           name: registry.access.redhat.com/jboss-eap-7/eap72-openshift:1.0
       type: Source
     triggers:
