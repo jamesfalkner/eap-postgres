@@ -151,14 +151,20 @@ items:
           imagePullPolicy: Always
           livenessProbe:
             httpGet:
-              path: /health
+              path: /services/health
               port: 8080
               scheme: HTTP
+            initialDelaySeconds: 20
+            failureThreshold: 5
+            periodSeconds: 10
           readinessProbe:
             httpGet:
-              path: /health
+              path: /services/health
               port: 8080
               scheme: HTTP
+            initialDelaySeconds: 20
+            failureThreshold: 5
+            periodSeconds: 10
           name: testapp
           ports:
           - containerPort: 8778
